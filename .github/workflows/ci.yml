@@ -34,14 +34,11 @@ jobs:
         with:
           path: |
             /home/runner/nix
+            /home/.gradle/caches
           key: key
 
-      - name: Compile LaTeX document
-        uses: workflow/nix-shell-action@v3
-        with:
-          packages: texlive.combined.scheme-full, asymptote
-          script: |
-            latexmk -f -pdflatex $filename$.tex
+      - name: Compile and run tests
+        run:  nix-shell --command "gradle test"
 
       - name: Get next version
         uses: reecetech/version-increment@2023.4.1
