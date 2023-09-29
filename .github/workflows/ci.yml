@@ -34,7 +34,6 @@ jobs:
         with:
           path: |
             /home/runner/nix
-            /home/.gradle/caches
           key: key
 
       - name: Compile and run tests
