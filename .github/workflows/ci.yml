@@ -37,7 +37,7 @@ jobs:
           key: key
 
       - name: Build and run unit tests
-        run:  nix-shell -I nixpkgs=shell.nix -p bash --command "gradle test assembleDebug"
+        run:  nix-shell --command "gradle test assembleDebug"
 
       - name: Calculate version number
         uses: reecetech/version-increment@2023.4.1

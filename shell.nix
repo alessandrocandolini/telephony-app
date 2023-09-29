@@ -22,6 +22,7 @@ let
 in
 mkShell {
   buildInputs = [
+    bash
     gradle
     android-sdk
   ];
