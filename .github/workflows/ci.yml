@@ -59,4 +59,4 @@ jobs:
           tag_name: \${{ steps.version.outputs.version }}
           draft: false
           prerelease: false
-          files: $filename$.pdf
+          files: ./app/build/outputs/apk/debug/app-debug.apk
