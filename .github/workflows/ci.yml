@@ -15,13 +15,13 @@ permissions:
   contents: write
 
 jobs:
-  build_latex:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Git repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup nix
+      - name: Install nix
         uses: cachix/install-nix-action@v20
         with:
           nix_path: nixpkgs=channel:nixos-unstable
@@ -29,30 +29,30 @@ jobs:
             store = /home/runner/nix
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
-      - name: Restore from cache
+      - name: Mount cache
         uses: actions/cache@v3
         with:
           path: |
             /home/runner/nix
           key: key
 
-      - name: Compile and run tests
-        run:  nix-shell --command "gradle test"
+      - name: Build and run unit tests
+        run:  nix-shell -I nixpkgs=shell.nix -p bash --command "gradle test assembleDebug"
 
-      - name: Get next version
+      - name: Calculate version number
         uses: reecetech/version-increment@2023.4.1
         id: version
         with:
           scheme: semver
           increment: minor
 
-      - name: Create tag
+      - name: Create Git tag
         if: github.ref == 'refs/heads/main'
         uses: rickstaa/action-create-tag@v1
         with:
           tag: \${{ steps.version.outputs.version }}
 
-      - name: Create Github Release
+      - name: Create Github Release with debug artifacts
         if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v1
         with:
