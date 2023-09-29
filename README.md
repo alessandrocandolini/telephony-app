@@ -1,3 +1,5 @@
+[![CI](https://github.com/alessandrocandolini/telephony-app/actions/workflows/ci.yml/badge.svg)](https://github.com/alessandrocandolini/telephony-app/actions/workflows/ci.yml)
+
 # telephony-app
 
 ## Compile and test 
