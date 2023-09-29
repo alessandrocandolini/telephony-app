@@ -36,8 +36,11 @@ jobs:
             /home/runner/nix
           key: key
 
-      - name: Build and run unit tests
-        run:  nix-shell --command "gradle test assembleDebug"
+      - name: run unit tests
+        run:  nix-shell --run "gradle test"
+
+      - name: assemble debug
+        run:  nix-shell --run "gradle assembleDebug"
 
       - name: Calculate version number
         uses: reecetech/version-increment@2023.4.1
