@@ -38,7 +38,6 @@ jobs:
       - name: fake step
         run:  nix-shell -p bash --run "echo test"
 
-      - run: nix-build
       - name: run unit tests
         run:  nix-shell -p bash --run "gradle test"
 
