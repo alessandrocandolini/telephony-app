@@ -26,4 +26,4 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
       - name: fake step
-        run:  nix-shell --run "echo test"
+        run:  nix-shell -p bash --run "echo test"
