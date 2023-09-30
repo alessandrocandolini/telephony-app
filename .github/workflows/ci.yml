@@ -42,7 +42,8 @@ jobs:
           !/nix/var/nix/gc.lock
           !/nix/var/nix/db/big-lock
           !/nix/var/nix/db/reserved
-         key: ${{ runner.os }}-nix-store
+          /home/runner/.gradle/caches/**
+         key: ${{ runner.os }}-${{ hashFiles('home/runner/.gradle/caches/**') }-nix-and-grandle-store
 
       - name: Install nix
         uses: cachix/install-nix-action@v20
@@ -50,7 +51,7 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
 
       - name: run unit tests
-        run:  nix-shell --run "gradle --no-daemon test"
+        run:  nix-shell --run "gradle --no-daemon testDebug"
 
       - name: assemble debug
         run:  nix-shell --run "gradle --no-daemon assembleDebug"
