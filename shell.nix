@@ -12,6 +12,7 @@ let
 
   android-sdk = android-nixpkgs.sdk (sdkPkgs: with sdkPkgs; [
     cmdline-tools-latest
+    build-tools-33-0-1
     build-tools-34-0-0
     platform-tools
     platforms-android-34
