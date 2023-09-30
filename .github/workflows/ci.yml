@@ -30,7 +30,7 @@ jobs:
       - name: Cache nix
         uses: actions/cache@v3
         with:
-        path: |
+         path: |
           # See https://github.com/actions/cache/pull/726
           /nix/store/**
           # Missing something?
@@ -42,7 +42,7 @@ jobs:
           !/nix/var/nix/gc.lock
           !/nix/var/nix/db/big-lock
           !/nix/var/nix/db/reserved
-        key: ${{ runner.os }}-nix-store
+         key: ${{ runner.os }}-nix-store
 
       - name: Install nix
         uses: cachix/install-nix-action@v20
