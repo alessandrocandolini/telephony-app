@@ -1,6 +1,11 @@
+import com.adarshr.gradle.testlogger.TestLoggerExtension
+import com.adarshr.gradle.testlogger.TestLoggerPlugin
+import com.adarshr.gradle.testlogger.theme.ThemeType
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.adarshr.test-logger")
 }
 
 android {
@@ -21,8 +26,15 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
             isMinifyEnabled = false
+            isShrinkResources = false
+            isDebuggable = true
+        }
+        release {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -47,9 +59,23 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    testOptions {
+        unitTests.all {
+            it.useJUnitPlatform()
+        }
+    }
+}
+
+
+plugins.withType<TestLoggerPlugin> {
+    configure<TestLoggerExtension> {
+        theme = ThemeType.STANDARD // MOCHA
+    }
 }
 
 dependencies {
+
+    val kotestVersion = "5.7.2"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -66,4 +92,7 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+    testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
+    testImplementation("io.kotest:kotest-property:$kotestVersion")
 }
