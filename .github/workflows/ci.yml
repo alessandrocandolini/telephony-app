@@ -35,10 +35,15 @@ jobs:
           key: key
 
       - name: fake step
-        run:  echo $NIX_STORE_DIR
+        run:  |
+          echo path $NIX_PATH
+          echo store $NIX_STORE
 
       - name: fake step 2
-        run:  NIX_STORE_DIR=/home/runner/nix nix-shell --run "echo test"
+        run:  |
+          export NIX_STORE=/home/runner/nix/store
+          nix-shell --run "echo test"
+        shell: bash
 
       - name: run unit tests
         run:  nix-shell --run "gradle test"
