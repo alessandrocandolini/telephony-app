@@ -22,7 +22,6 @@ let
 in
 mkShell {
   buildInputs = [
-    jdk17
     gradle
     android-sdk
   ];
