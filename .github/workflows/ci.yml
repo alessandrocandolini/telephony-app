@@ -35,6 +35,9 @@ jobs:
           key: key
 
       - name: fake step
+        run:  echo $NIX_STORE_DIR
+
+      - name: fake step 2
         run:  nix-shell -p bash --run "echo test"
 
       - name: run unit tests
