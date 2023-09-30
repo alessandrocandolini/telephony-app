@@ -6,7 +6,7 @@
 
 Assuming a standard Android distribution and `gradle` available, unit tests can by run from command-line using 
 ```bash
-gradle test
+gradle testDebug
 ```
 and to assembly the debug or release artifacts use 
 ```bash 
