@@ -36,7 +36,6 @@ jobs:
             /home/runner/nix
           key: key
 
-      - run: nix-build
       - name: fake step
         run:  nix-shell --run "echo test"
 
