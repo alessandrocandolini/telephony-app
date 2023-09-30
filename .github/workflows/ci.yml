@@ -39,10 +39,10 @@ jobs:
         run:  nix-shell -p bash --run "echo test"
 
       - name: run unit tests
-        run:  nix-shell -p bash --run "gradle test"
+        run:  nix-shell --run "gradle test"
 
       - name: assemble debug
-        run:  nix-shell -p bash --run "gradle assembleDebug"
+        run:  nix-shell --run "gradle assembleDebug"
 
       - name: Calculate version number
         uses: reecetech/version-increment@2023.4.1
