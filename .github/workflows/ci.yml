@@ -37,7 +37,7 @@ jobs:
           key: key
 
       - name: fake step
-        run:  nix-shell --run "echo test"
+        run:  nix-shell --store /home/runner/nix --run "echo test"
 
       - run: nix-build
       - name: run unit tests
