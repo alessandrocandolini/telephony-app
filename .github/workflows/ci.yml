@@ -37,6 +37,10 @@ jobs:
           key: key
 
       - run: nix-build
+      - name: fake step
+        run:  nix-shell --run "echo test"
+
+      - run: nix-build
       - name: run unit tests
         run:  nix-shell --run "gradle test"
 
