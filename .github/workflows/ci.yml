@@ -43,7 +43,7 @@ jobs:
           !/nix/var/nix/db/big-lock
           !/nix/var/nix/db/reserved
           /home/runner/.gradle/caches/**
-         key: ${{ runner.os }}-${{ hashFiles('/home/runner/.gradle/caches/**') }}-nix-and-gradle-store
+         key: ${{ runner.os }}-${{ hashFiles('**/build.gradle.kts') }}-nix-and-gradle-store
 
       - name: Install nix
         uses: cachix/install-nix-action@v20
