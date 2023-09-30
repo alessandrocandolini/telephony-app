@@ -38,7 +38,7 @@ jobs:
         run:  echo $NIX_STORE_DIR
 
       - name: fake step 2
-        run:  nix-shell -p bash --run "echo test"
+        run:  NIX_STORE_DIR=/home/runner/nix nix-shell --run "echo test"
 
       - name: run unit tests
         run:  nix-shell --run "gradle test"
