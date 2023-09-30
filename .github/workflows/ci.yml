@@ -51,10 +51,10 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
 
       - name: run unit tests
-        run:  nix-shell --run "gradle --no-daemon testDebug"
+        run:  nix-shell --run "gradle --no-daemon testDebug --scan"
 
       - name: assemble debug
-        run:  nix-shell --run "gradle --no-daemon assembleDebug"
+        run:  nix-shell --run "gradle --no-daemon assembleDebug --scan"
 
       - name: Calculate version number
         uses: reecetech/version-increment@2023.4.1
