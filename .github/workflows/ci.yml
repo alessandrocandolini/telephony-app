@@ -55,13 +55,13 @@ jobs:
         if: github.ref == 'refs/heads/main'
         uses: rickstaa/action-create-tag@v1
         with:
-          tag: \${{ steps.version.outputs.version }}
+          tag: ${{ steps.version.outputs.version }}
 
       - name: Create Github Release with debug artifacts
         if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: \${{ steps.version.outputs.version }}
+          tag_name: ${{ steps.version.outputs.version }}
           draft: false
           prerelease: false
           files: ./app/build/outputs/apk/debug/app-debug.apk
