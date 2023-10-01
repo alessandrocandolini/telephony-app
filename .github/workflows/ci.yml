@@ -57,7 +57,7 @@ jobs:
           echo "Cache hit: ${{steps.get-cache.outputs.cache-hit}}"
 
       - name: run unit tests and build
-        run:  nix-shell --pure --run "gradle --console=plain --no-daemon --info testDebug assembleDebug"
+        run:  nix-shell --pure --run "gradle --no-watch-fs --console=plain --no-daemon --info testDebug assembleDebug"
 
       - name: Calculate version number
         uses: reecetech/version-increment@2023.4.1
