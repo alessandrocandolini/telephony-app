@@ -2,40 +2,45 @@
 
 # telephony-app
 
-## Compile and test 
+## How to
 
-**Requirements**: Android distribution and the [gradle](https://gradle.org/) build tool. 
+**Requirements**: Android distribution and the [gradle](https://gradle.org/) build tool
 
-**Installation:** the Android distribution and gradle from command-line is via [nix](https://nixos.org/). A "old-style" `shell.nix` (no nix flakes yet!) is provided as part of the project, so assuming nix is available it's enough to open an ephemeral shell from the root of the project: 
+The Android distribution and gradle from command-line is via [nix](https://nixos.org/). A "old-style" `shell.nix` (no nix flakes yet!) is provided as part of the project, so assuming nix is available it's enough to open an ephemeral shell from the root of the project: 
 ```bash
 nix-shell 
 ```
 Alternatively, see [official docs](https://developer.android.com/studio) for ways to install it using Android Studio from the UI, or using [homebrew](https://brew.sh/) on MACOS. 
 
-
-**Unit tests** can by run from command-line using 
+#### Unit tests
 ```bash
 gradle testDebug
 ```
-and to **assembly the debug or release apk** artifacts use 
+
+#### Build apk 
+To assembly the debug or release apk artifacts use 
 ```bash 
 gradle assemblyDebug 
 gradle assemblyRelease 
 ```
-To check dependency updates: 
+respectively 
+
+#### Check dependency updates
 ```bash 
 gradle dependencyUpdates  
 ```
 
+#### Using nix-shell to run the commands: 
 Commands can also be executed via nix-shell directly. For example, the CI runs 
 ```bash
  nix-shell --pure --run "gradle --no-watch-fs --console=plain --no-daemon --info testDebug assembleDebug
 ```
 
-**Note on gradle and nix**: in this project the gradle dependencies are managed by `gradle` itself, not by nix. This means that gradle will download the artifacts and store them in `~/.gradle/` and those artifacts will *not* be cleaned up automatically when leaving the ephemeral `nix-shell`. 
+#### Note on gradle and nix 
+In this project, gradle dependencies (libraries, plugins) are managed by `gradle` itself, not by nix. This means that gradle will download the artifacts and store them in `~/.gradle/` and those artifacts will *not* be cleaned up automatically when leaving the ephemeral `nix-shell`. 
 
 
-## CI/CD 
+## Github actions  
 
 This project uses github actions to run unit tests run and generate an apk artifact at every commit. The generated artifact is downloadable from github releases.
 
