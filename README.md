@@ -28,7 +28,7 @@ Commands can also be executed via nix-shell directly. For example, the CI runs
  nix-shell --pure --run "gradle --no-watch-fs --console=plain --no-daemon --info testDebug assembleDebug
 ```
 
-**Note**: in this project the gradle dependencies are managed by `gradle` itself, not by nix. This means that gradle will download the artifacts and store them in `~/.gradle/` and those artifacts will not be removed by nix after leaving the ephemeral `nix-shell`. 
+**Note on gradle and nix**: in this project the gradle dependencies are managed by `gradle` itself, not by nix. This means that gradle will download the artifacts and store them in `~/.gradle/` and those artifacts will *not* be cleaned up automatically when leaving the ephemeral `nix-shell`. 
 
 
 ## CI/CD 
