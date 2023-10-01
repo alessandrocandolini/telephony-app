@@ -28,13 +28,14 @@ Commands can also be executed via nix-shell directly. For example, the CI runs
  nix-shell --pure --run "gradle --no-watch-fs --console=plain --no-daemon --info testDebug assembleDebug
 ```
 
-Notice: project dependencies are managed by `gradle` outside nix, so gradle will download the artifacts and store them in `~/.gradle/` and those artifacts will stay after leaving the ephemeral `nix-shell`. 
+Notice: in this project the gradle dependencies are managed by `gradle` itself, not by nix. This means that gradle will download the artifacts and store them in `~/.gradle/` and those artifacts will not be removed by nix after leaving the ephemeral `nix-shell`. 
 
 
 ## CI/CD 
 
-This project uses github actions to run unit tests run and generate an apk artifact at every commit. The artifactu is downloadable from github releases.
+This project uses github actions to run unit tests run and generate an apk artifact at every commit. The generated artifact is downloadable from github releases.
 
-The setup intentionally does not rely on ad-hoc Github Actions to run gradle. Instead, it uses the same `nix-shell` provided for local development. 
-Nix store is cached, and a hash of`shell.nix` is used as part of the cache key to ensure changes to `shell.nix` result in cache invalidation. 
-Gradle dependencies in `~/.gradle/caches` are also cached, notice however that in this the `toml` file is used to generate the cache key: if dependencies are updated outside of this file (eg, imported directly in some `build.gradle.kts` file) the cache key (and thus the cache) will not be updated
+The setup intentionally does not rely on ad-hoc Github Actions to run gradle. Instead, it's completely agnostic about gradle and android, and it uses the same `nix-shell` provided for local development. 
+This might be not the most efficient setup, but it ensures that the provided `shell.nix` is always up-to-date. 
+
+To improve build times in the CI, the nix store is cached. A hash of`shell.nix` is used as part of the cache key to ensure changes to `shell.nix` trigger a cache invalidation. Gradle dependencies in `~/.gradle/caches` are also cached, notice however that in this only the `gradle/libs.versions.toml` file is used to generate the cache key: if dependencies are updated outside of this file (eg, imported directly in some `build.gradle.kts`) the cache key does not change and the cache content is not updated. 
