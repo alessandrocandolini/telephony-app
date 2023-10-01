@@ -4,13 +4,13 @@
 
 ## Compile and test 
 
-Requirements: Android distribution and the [gradle](https://gradle.org/) build tool. 
+**Requirements**: Android distribution and the [gradle](https://gradle.org/) build tool. 
 
-A possible way to install the Android distribution and gradle is via [nix](https://nixos.org/). A "old-style" `shell.nix` (no nix flakes yet!) is provided as part of the project, so assuming nix is available it's enough to open an ephemeral shell from the root of the project: 
+A possible way to install the Android distribution and gradle from command-line is via [nix](https://nixos.org/). A "old-style" `shell.nix` (no nix flakes yet!) is provided as part of the project, so assuming nix is available it's enough to open an ephemeral shell from the root of the project: 
 ```bash
 nix-shell 
 ```
-Alternatively, see [official docs](https://developer.android.com/studio)
+Alternatively, see [official docs](https://developer.android.com/studio) for ways to install it using Android Studio from the UI, or using [homebrew](https://brew.sh/) on MACOS. 
 
 
 Unit tests can by run from command-line using 
@@ -28,7 +28,7 @@ Commands can also be executed via nix-shell directly. For example, the CI runs
  nix-shell --pure --run "gradle --no-watch-fs --console=plain --no-daemon --info testDebug assembleDebug
 ```
 
-Notice: in this project the gradle dependencies are managed by `gradle` itself, not by nix. This means that gradle will download the artifacts and store them in `~/.gradle/` and those artifacts will not be removed by nix after leaving the ephemeral `nix-shell`. 
+**Note**: in this project the gradle dependencies are managed by `gradle` itself, not by nix. This means that gradle will download the artifacts and store them in `~/.gradle/` and those artifacts will not be removed by nix after leaving the ephemeral `nix-shell`. 
 
 
 ## CI/CD 
