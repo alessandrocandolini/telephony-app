@@ -3,6 +3,9 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven {
+            url = uri("https://plugins.gradle.org/m2/")
+        }
     }
 }
 dependencyResolutionManagement {
@@ -15,7 +18,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "telephony-app"
 include(":app")
-
 
 plugins {
     `gradle-enterprise`
