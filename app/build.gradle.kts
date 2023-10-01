@@ -80,13 +80,9 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.bundles.lifecycle)
     implementation(libs.activity.compose)
-    implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation(libs.bundles.compose)
-
-    androidTestImplementation(libs.bundles.uitest)
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
-
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    debugImplementation(libs.bundles.composeDebug)
     testImplementation(libs.bundles.kotest)
+    androidTestImplementation(libs.bundles.uitest)
+
 }

@@ -5,6 +5,8 @@ coroutines = "1.7.3"
 molecule = "1.2.1"
 serialisation = "1.6.0"
 lifecycle = "2.6.2"
+compose = "1.5.2"
+material3 = "1.1.2"
 
 [libraries]
 kotest-runner = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
@@ -23,14 +25,16 @@ turbine = {group = "app.cash.turbine", name = "turbine", version = "1.0.0" }  # 
 lifecycle-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle"}
 lifecycle-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle"}
 
-compose-ui = { group = "androidx.compose.ui", name = "ui"}
-compose-graphics = { group = "androidx.compose.ui", name = "ui-graphics"}
-compose-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview"}
-compose-material3 = { group = "androidx.compose.material3", name = "material3"}
+compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose"}
+compose-graphics = { group = "androidx.compose.ui", name = "ui-graphics", version.ref = "compose"}
+compose-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "compose"}
+material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3"}
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "compose"}
+compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "compose"}
 
 activity-compose = { module = "androidx.activity:activity-compose", version = "1.7.2" }
 core-ktx = { module = "androidx.core:core-ktx", version = "1.12.0" }
-espresso-core = { module = "androidx.test.espresso:espresso-core", version = "3.5.1" }
+espresso-core = { module = "androidx.test.espresso:espresso-core", version = "3.5.2" }
 ext-junit = { module = "androidx.test.ext:junit", version = "1.1.5" }
 junit = { module = "junit:junit", version = "4.13.2" }
 androidx-compose = { module = "androidx.compose.ui:ui-test-junit4" }
@@ -38,7 +42,8 @@ androidx-compose = { module = "androidx.compose.ui:ui-test-junit4" }
 [bundles]
 kotest = ["kotest-runner", "kotest-assertions", "kotest-property"]
 lifecycle = ["lifecycle-ktx", "lifecycle-compose"]
-compose = ["compose-ui", "compose-graphics", "compose-preview", "compose-material3"]
+compose = ["compose-ui", "compose-graphics", "compose-preview", "material3"]
+composeDebug = ["compose-ui-tooling", "compose-ui-test-manifest"]
 uitest = ["activity-compose", "core-ktx", "espresso-core", "ext-junit", "junit", "androidx-compose"]
 
 [plugins]
@@ -47,3 +52,4 @@ kotlin = {id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 logger = {id = "com.adarshr.test-logger", version = "3.2.0" }
 serialization = {id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 molecule = {id = "app.cash.molecule", version.ref = "molecule" }
+versions = {id = "com.github.ben-manes.versions", version = "0.48.0" }
