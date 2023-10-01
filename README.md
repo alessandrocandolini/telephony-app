@@ -4,34 +4,37 @@
 
 ## Compile and test 
 
-Assuming a standard Android distribution and the `gradle` build tool are available, unit tests can by run from command-line using 
+Requirements: Android distribution and the [gradle](https://gradle.org/) build tool. 
+
+A possible way to install the Android distribution and gradle is via [nix](https://nixos.org/). A "old-style" `shell.nix` (no nix flakes yet!) is provided as part of the project, so assuming nix is available it's enough to open an ephemeral shell from the root of the project: 
+```bash
+nix-shell 
+```
+Alternatively, see [official docs](https://developer.android.com/studio)
+
+
+Unit tests can by run from command-line using 
 ```bash
 gradle testDebug
 ```
-and to assembly the debug or release artifacts use 
+and to assembly the debug or release apk artifacts use 
 ```bash 
 gradle assemblyDebug 
 gradle assemblyRelease 
 ```
 
-One way to install the Android distribution is via [nix](https://nixos.org/), for example using an ephemeral `nix-shell` as follows:
+Commands can also be executed via nix-shell directly. For example, the CI runs 
 ```bash
-nix-shell 
-```
-A "old-style" `shell.nix` has been provided in the repository (no nix flakes yet!) 
-
-You can also use nix to execute the commands directly. For example, the CI runs 
-```bash
-nix-shell --pure --run "gradle --console=plain --no-daemon --info testDebug assembleDebug"
+ nix-shell --pure --run "gradle --no-watch-fs --console=plain --no-daemon --info testDebug assembleDebug
 ```
 
-Notice: project dependencies are managed by `gradle` outside nix (ie, even if using nix, gradle will download the artifacts and store them in `~/.gradle/`) 
-
+Notice: project dependencies are managed by `gradle` outside nix, so gradle will download the artifacts and store them in `~/.gradle/` and those artifacts will stay after leaving the ephemeral `nix-shell`. 
 
 
 ## CI/CD 
 
-This project uses github actions to ensure at every commit we run unit tests and generate an apk artifact downloadable from github releases.
+This project uses github actions to run unit tests run and generate an apk artifact at every commit. The artifactu is downloadable from github releases.
 
-The CI intentionally does not rely on ad-hoc Github Actions to run gradle. Instead, it uses the nix shell provided for local development. 
-Nix store is cached. We also attempt at caching gradle dependencies, but for that `**/build.gradle.kts` files are used to generate the cache key: if you update dependencies stored in other files those will not automatically be cached). 
+The setup intentionally does not rely on ad-hoc Github Actions to run gradle. Instead, it uses the same `nix-shell` provided for local development. 
+Nix store is cached, and a hash of`shell.nix` is used as part of the cache key to ensure changes to `shell.nix` result in cache invalidation. 
+Gradle dependencies in `~/.gradle/caches` are also cached, notice however that in this the `toml` file is used to generate the cache key: if dependencies are updated outside of this file (eg, imported directly in some `build.gradle.kts` file) the cache key (and thus the cache) will not be updated
