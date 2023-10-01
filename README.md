@@ -6,21 +6,25 @@
 
 **Requirements**: Android distribution and the [gradle](https://gradle.org/) build tool. 
 
-A possible way to install the Android distribution and gradle from command-line is via [nix](https://nixos.org/). A "old-style" `shell.nix` (no nix flakes yet!) is provided as part of the project, so assuming nix is available it's enough to open an ephemeral shell from the root of the project: 
+**Installation:** the Android distribution and gradle from command-line is via [nix](https://nixos.org/). A "old-style" `shell.nix` (no nix flakes yet!) is provided as part of the project, so assuming nix is available it's enough to open an ephemeral shell from the root of the project: 
 ```bash
 nix-shell 
 ```
 Alternatively, see [official docs](https://developer.android.com/studio) for ways to install it using Android Studio from the UI, or using [homebrew](https://brew.sh/) on MACOS. 
 
 
-Unit tests can by run from command-line using 
+**Unit tests** can by run from command-line using 
 ```bash
 gradle testDebug
 ```
-and to assembly the debug or release apk artifacts use 
+and to **assembly the debug or release apk** artifacts use 
 ```bash 
 gradle assemblyDebug 
 gradle assemblyRelease 
+```
+To check dependency updates: 
+```bash 
+gradle dependencyUpdates  
 ```
 
 Commands can also be executed via nix-shell directly. For example, the CI runs 
