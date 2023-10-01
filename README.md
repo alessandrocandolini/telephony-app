@@ -39,3 +39,8 @@ The setup intentionally does not rely on ad-hoc Github Actions to run gradle. In
 This might be not the most efficient setup, but it ensures that the provided `shell.nix` is always up-to-date. 
 
 To improve build times in the CI, the nix store is cached. A hash of`shell.nix` is used as part of the cache key to ensure changes to `shell.nix` trigger a cache invalidation. Gradle dependencies in `~/.gradle/caches` are also cached, notice however that in this case only the `gradle/libs.versions.toml` file is used to generate the cache key: if dependencies are updated outside of this file (eg, imported directly in some `build.gradle.kts`) the cache key does not change and the cache content is not updated. 
+
+
+## Template
+
+The original skelethon of this project has been generated usign this template: https://github.com/alessandrocandolini/android-app.g8 
